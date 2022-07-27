@@ -1,29 +1,12 @@
-function pythonSimulator(print = "Hello World") {
-  console.log(print);
-}
+const imie = "Jakub";
+const pochodzenie = "Polska";
+const zamieszkanie = "Cieszyn";
+const lata = 22;
 
-pythonSimulator(); //Hello World
-pythonSimulator("Cześć świecie"); //Cześć świecie
+const wiadomość = `Hallo! Ich heiße ${imie}. 
+Ich bin ${lata} Jahre alt. 
+Ich wohne in ${zamieszkanie}. 
+Ich komme aus ${pochodzenie}. 
+Ich hasse die deutsche Sprache. Wiedersehen!`;
 
-function createDiv(
-  height = "20rem",
-  width = "20rem",
-  border = "solid 5px black"
-) {
-  const div = document.createElement("div");
-  div.style.height = height;
-  div.style.width = width;
-  div.style.border = border;
-  document.body.appendChild(div);
-}
-
-createDiv();
-createDiv("10rem", undefined, "solid 3px blue");
-
-const podatek = () => 0.24;
-const twojaPensja = function (pensja, brutto = pensja * podatek()) {
-  return pensja + brutto;
-};
-
-const twojeBrutto = twojaPensja(1000);
-console.log(twojeBrutto); //1024
+console.log(wiadomość);
