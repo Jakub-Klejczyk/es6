@@ -1,46 +1,69 @@
-// function Person(firstName, lastName) {
-//   this.firstName = firstName;
-//   this.lastName = lastName;
-// }
-
-// Person.prototype.sayHello = function () {
-//   return this.firstName + " " + this.lastName;
-// };
-
-class Person {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+const promise = new Promise((resolve, rejest) => {
+  const a = 1 + 1;
+  if (a === 2) {
+    resolve("success");
+  } else {
+    rejest("failure");
   }
-  sayHello() {
-    return `${this.firstName} ${this.lastName}`;
-  }
+});
+
+promise
+  .then((msg) => {
+    console.log(msg);
+  })
+  .catch((msg) => {
+    console.log(msg);
+  });
+
+//--------------------
+const student1 = false;
+const student2 = false;
+
+function testPytań() {
+  return new Promise((resolve, reject) => {
+    if (!student1) {
+      reject({
+        name: "student1",
+        test: "niezdane",
+      });
+    } else if (!student2) {
+      reject({
+        name: "student2",
+        test: "niezdane",
+      });
+    } else {
+      resolve("braaawo!");
+    }
+  });
 }
 
-const person1 = new Person("Janeczek", "Kowalski");
+testPytań()
+  .then((weryfikacja) => {
+    console.log(weryfikacja);
+  })
+  .catch((err) => {
+    console.log(err.name + " " + err.test);
+  });
 
-console.log(person1.sayHello());
+//(student1 === false) === (!student)
 
-//dziedziczenie
+//-------------
+const task1 = new Promise((resolve, reject) => {
+  resolve("task one done");
+});
 
-class Student extends Person {
-  constructor(firstName, lastName, age = "0") {
-    super(firstName, lastName);
-    this.age = age;
-  }
+const task2 = new Promise((resolve, reject) => {
+  resolve("task dwo done");
+});
 
-  // jeśli nie stworze nowego konstruktora to js sam przeniesie nadrzędne parametry przy pomocy spred operatora
-  //   constructor(...args) {
-  //     super(...args);
-  //   }
+const task3 = new Promise((resolve, reject) => {
+  resolve("task three done");
+});
 
-  sayHello2() {
-    return `Nazywam się ${super.sayHello()} i mam ${this.age} lat.`;
-  }
-}
+Promise.race([task1, task2, task3]).then((msg) => {
+  console.log(msg);
+});
 
-const student1 = new Student("Mariusz", "Kamiński");
-
-console.log(student1.sayHello2());
-
-// dziedziczyć można również z wbudowanych typów jak np. Array
+Promise.all([task1, task2, task3]).then((msg) => {
+  console.log(msg);
+});
