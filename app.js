@@ -1,54 +1,52 @@
-const a = 5;
+const numbers = [1, 2, 3, 4, 5, 6];
 
-function nFunc(a, b = 2) {
-  return a + b + 3;
+//const one = numbers[0]
+// const [one] = numbers;
+// console.log(one);
+
+const [one, two, , four, ...rest] = numbers;
+console.log(one);
+console.log(two);
+console.log(four);
+console.log(rest);
+
+function działania(a, b) {
+  return [a + b, a * b];
 }
 
-const arrFunc = (a, b = 2) => a + b + 3;
+const [suma, mnożenie, dzielenie = "Ni ma!"] = działania(2, 3);
 
-console.log(arrFunc(5));
-
-var firstName = "Maciek1",
-  lastName = "Maćkowski2";
+console.log(suma);
+console.log(mnożenie);
+console.log(dzielenie);
 
 const person = {
-  firstName: "Maciek",
-  lastName: "Maćkowski",
-  sayHello: () => {
-    return console.log(`${this.firstName} ${this.firstName}`);
+  name: "Franek",
+  age: 3,
+  sports: {
+    main: "Sandbox",
+    second: "Kindergarden",
+    third: "Kindermachen",
   },
 };
 
-person.sayHello();
-// var przypisuje wartość do obiektu globalnego, a arrow func skipuje kontekst o jeden etap dalej,
-// dlatego zczytuje dane z window, a nie person
+const { name: firstName, age, food = "Wszystko", ...sports } = person;
+const {
+  sports: { main },
+} = person;
 
-const person2 = {
-  firstName: "Mariusz",
-  lastName: "Mariuszewski",
-  sayHello: function () {
-    setTimeout(() => {
-      console.log(`${this.firstName} ${this.firstName}`);
-    }, 1000);
-  },
-};
+console.log(firstName);
+console.log(age);
+console.log(food);
+console.log(sports);
+console.log(main);
 
-person2.sayHello();
-//kontekst sayhello został ominięty przez arr func i przekierowany na poziom dalej, czyli person2, dlatego działa
+const person2 = { ...person };
 
-const div = document.createElement("div");
-div.style.height = "4rem";
-div.style.width = "4rem";
-div.style.border = "solid 5px black";
-document.body.appendChild(div);
+console.log(person2);
 
-const btn = document.createElement("button");
-btn.textContent = "Klikaj!";
-btn.style.border = "solid 5px black";
-div.appendChild(btn);
+function showYa({ name, age }) {
+  console.log(`Nazywam się ${name} i mam ${age} lat`);
+}
 
-btn.addEventListener("click", (e) => {
-  //this.style.border = "solid 5px green;
-  console.log(this);
-});
-//skipowanie kontekstu nie działa na obiektach drzewa DOM :(
+showYa(person2);
